@@ -59,7 +59,7 @@ Here is an exploratory visualization of the data set. First you can see 12 rando
 ![Images][image9]
 
 Additionally, here is a bar chart showing how many images of each traffic sign in the training dataset are:
-![Images][image10]
+![Bar Chart][image10]
 
 
 ### Design and Test a Model Architecture
