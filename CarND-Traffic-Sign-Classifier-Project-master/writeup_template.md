@@ -27,6 +27,8 @@ The goals / steps of this project are the following:
 [image6]: ./examples/placeholder.png "Traffic Sign 3"
 [image7]: ./examples/placeholder.png "Traffic Sign 4"
 [image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image9]: ./examples/examples_database.png "Some images from the database"
+[image10]: ./examples/barChart_database.png "Bar cart of the training data"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -54,12 +56,11 @@ signs data set:
 #### 2. Include an exploratory visualization of the dataset.
 
 Here is an exploratory visualization of the data set. First you can see 12 randomly selected images with database code and description in the title:
-[image9]: ./examples/examples_database.png "Some images from the database"
+![Images][image9]
 
 Additionally, here is a bar chart showing how many images of each traffic sign in the training dataset are:
-[image10]: ./examples/barChart_database.png "Bar cart of the training data"
+![Images][image10]
 
-![alt text][image1]
 
 ### Design and Test a Model Architecture
 
