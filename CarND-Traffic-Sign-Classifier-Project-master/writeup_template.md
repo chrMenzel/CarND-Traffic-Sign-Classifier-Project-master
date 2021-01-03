@@ -42,18 +42,22 @@ You're reading it! and here is a link to my [project code](https://github.com/ud
 
 #### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-I used the pandas library to calculate summary statistics of the traffic
+I used the numpy library to calculate summary statistics of the traffic
 signs data set:
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+* The size of training set is 34.799 images
+* The size of the validation set is 4.410 images.
+* The size of test set is 12.630 images
+* The shape of a traffic sign image is (32, 32, 3)
+* The number of unique classes/labels in the data set is 43 traffic sign classes.
 
 #### 2. Include an exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+Here is an exploratory visualization of the data set. First you can see 12 randomly selected images with database code and description in the title:
+[image9]: ./examples/examples_database.png "Some images from the database"
+
+Additionally, here is a bar chart showing how many images of each traffic sign in the training dataset are:
+[image10]: ./examples/barChart_database.png "Bar cart of the training data"
 
 ![alt text][image1]
 
