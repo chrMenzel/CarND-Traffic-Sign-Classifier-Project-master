@@ -66,19 +66,23 @@ Additionally, here is a bar chart showing how many images of each traffic sign i
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale because ...
+As a first step, I decided to convert the images to grayscale because many images are very dark and grayscaling reduces color features. Additionally, the
+further analytics are much more efficent with grayscaled images. My own experiencens and researches in the internet validate this.
 
-Here is an example of a traffic sign image before and after grayscaling.
+As a last step, I normalized the image data because this converts the RGB values of each pixel to float values between -1 and 1. This is useful because the furher analysis is much more comfortable with small numbers.
+
+Here is an example of a traffic sign image before and after grayscaling: follows
 
 ![alt text][image2]
 
-As a last step, I normalized the image data because ...
 
-I decided to generate additional data because ... 
+I decided to generate additional data because as the bar chart above shows, some traffic signs have very less examples (e. g. 0 - Speed limit (20 km/h) compared to others (e. g. 2 - Speed limit (50 km/h). This may be caused by the frequency distribution in reality, but to regognize all signs equally good, I prefered to increase all data to the count of the most frequent traffic sign in the database (2010 images). This resulted in an even better validation accuracy at the beginning of training the modified LeNet model architecture. The final result made just a small, but better difference. So I decided to keep the generation of additional data.
 
-To add more data to the the data set, I used the following techniques because ... 
+I have tried some methods of data augmentation but I did not get a significantly better result compared to other methods. Nevertheless my own experiences with images from the internet showed, that the accuracy grew better.
 
-Here is an example of an original image and an augmented image:
+The function increase_dataset in cell 6 will does the job. I use a random scaling factor between 0.8 and 1.2, a randomized rotation between -20 and 20 degrees and a random movement between -3 and 3 pixels in x and y direction.
+
+Here is an example of an original image and an augmented image: follows
 
 ![alt text][image3]
 
