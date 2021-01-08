@@ -22,17 +22,19 @@ The goals / steps of this project are the following:
 [image1]: ./examples/examples_database.png "Some images from the database"
 [image2]: ./examples/barChart_database.png "Bar cart of the training data"
 [image3]: ./examples/example_grayscaling.png "Grayscaling"
-[image4]: ./examples/0_Hoechstgeschwindigkeit20.jpg "0 - Speed limit (20km/h)"
-[image5]: ./examples/12_Vorfahrtstrasse.jpg "12 - Priority road"
-[image6]: ./examples/13_VorfahrtAchten.jpg "13 - Yield"
-[image7]: ./examples/13_VorfahrtAchten_verschneit.jpg "13 - Yield - with snow"
-[image8]: ./examples/14_Stop.jpg "14 - Stop"
-[image9]: ./examples/17_EinfahrtVerboten.jpg "17 - No entry"
-[image10]: ./examples/18_Achtung.jpg "18 - General caution"
-[image11]: ./examples/25_Baustelle.jpg "25 - Road work"
-[image12]: ./examples/2_Hoechstgeschwindigkeit50.jpg "2 - Speed limit (50km/h)"
-[image13]: ./examples/33_RechtsAbbiegen.jpg "33 - Turn right ahead"
-[image14]: ./examples/4_Hoechstgeschwindigkeit70.jpg "4 - Speed limit (70km/h)"
+[image4]: ./examples/TrafficSignsFromTheInternet/0_Hoechstgeschwindigkeit20.jpg "0 - Speed limit (20km/h)"
+[image5]: ./examples/TrafficSignsFromTheInternet/12_Vorfahrtstrasse.jpg "12 - Priority road"
+[image6]: ./examples/TrafficSignsFromTheInternet/13_VorfahrtAchten.jpg "13 - Yield"
+[image7]: ./examples/TrafficSignsFromTheInternet/13_VorfahrtAchten_verschneit.jpg "13 - Yield - with snow"
+[image8]: ./examples/TrafficSignsFromTheInternet/14_Stop.jpg "14 - Stop"
+[image9]: ./examples/TrafficSignsFromTheInternet/17_EinfahrtVerboten.jpg "17 - No entry"
+[image10]: ./examples/TrafficSignsFromTheInternet/18_Achtung.jpg "18 - General caution"
+[image11]: ./examples/TrafficSignsFromTheInternet/25_Baustelle.jpg "25 - Road work"
+[image12]: ./examples/TrafficSignsFromTheInternet/2_Hoechstgeschwindigkeit50.jpg "2 - Speed limit (50km/h)"
+[image13]: ./examples/TrafficSignsFromTheInternet/33_RechtsAbbiegen.jpg "33 - Turn right ahead"
+[image14]: ./examples/TrafficSignsFromTheInternet/4_Hoechstgeschwindigkeit70.jpg "4 - Speed limit (70km/h)"
+[image15]: ./examples/HowSureIsTheModel.png "How sure is the model?"
+[image16]: ./examples/VisualizingNeuralNetwork.png "Visualizing neural Network"
 
 
 ## Rubric Points
@@ -100,12 +102,12 @@ My final model consisted of the following layers:
 | Max pooling	      	| 2x2 stride,  outputs 5x5x16 				|
 | Flatten			|												|
 | Dropout 50 %   |       									|
-| Fully connected		| outputs 120.        									|
+| Fully connected		| outputs 120        									|
 | RELU				| activation function       									|
-| Fully connected		| outputs 84.        									|
+| Fully connected		| outputs 84        									|
 | RELU				| activation function   
 | Dropout 50 %   |      									|
-| Fully connected		| outputs 43.        									|
+| Fully connected		| outputs 43        									|
  
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
@@ -131,37 +133,37 @@ I began with an architecture which overfitted the training data, sometimes 99.6 
 
 Here are eleven German traffic signs that I found on the web:
 
-![alt text][image4]
+![0 - Speed limit (20km/h)][image4]
 This image might be difficult to classify because the perspective and rotation angle might look like every other speed limit sign.
 
-![alt text][image5]
+![12 - Priority road][image5]
 This image should be no problem besides of the perspective.
 
-![alt text][image6]
+![13 - Yield][image6]
 Here the traffic sign is quite small compared to the other images and there is a road sign above.
 
-![alt text][image7]
+![13 - Yield - with snow][image7]
 The traffic sign is big enough but parts of the sign are hidden by snow.
 
-![alt text][image8]
+![14 - Stop][image8]
 Here the perspective might be a problem, on the other hand there is no resembling traffic sign.
 
-![alt text][image9]
+![17 - No entry][image9]
 This sign should be easy to classify.
 
-![alt text][image10]
+![18 - General caution][image10]
 Here is the difficulty an additional sign below the interesting sign
 
-![alt text][image11]
+![25 - Road work][image11]
 This sign is ab bit blurry and the perspective could make the classifying harder.
 
-![alt text][image12]
+![2 - Speed limit (50km/h)][image12]
 This should be no problem although there are many resembling speed limit signs.
 
-![alt text][image13]
+![33 - Turn right ahead][image13]
 Here it is again the perspective, on the other hand the sign is good to see.
 
-![alt text][image14]
+![4 - Speed limit (70km/h)][image14]
 This should be no problem although there are many resembling speed limit signs.
 
 
@@ -188,26 +190,21 @@ Here are the results of the prediction:
 
 
 
-The model was able to correctly guess 10 of the 11 traffic signs, which gives an accuracy of 90.9 %. This compares favorably to the accuracy on the test set of 96.6 %.
+The model was able to correctly guess 10 of the 11 traffic signs, which gives an accuracy of 90.9 %. This compares favorably to the accuracy on the test set of 93.6 %.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+The code for making predictions on my final model is located in the 20th cell of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+Here is a bar chart for all eleven images. On the left side is a picture with the description as title, on the right side is a bar chart of the top five softmax probabilities of the model prediction. We can see, that the model was often very sure to see the correct image. Nevertheless sometimes there are other rows (e.g. the third image - Yield - here the model also thought wich about 28 % that this is an "ahead only" sign. But with more than 70 % it guessed right).
 
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+The one misclassified image is interesting. Here the model was for more than 60 % sure to see a 'Speed limit (30km/h)' sign. But with each less than 10 % it thought of another possibility. The fifth possibility would have been the correct answer.
 
-
-For the second image ... 
+![How sure is the model?][image15]
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+
+![Visusalizing neural network][image16]
 
 
