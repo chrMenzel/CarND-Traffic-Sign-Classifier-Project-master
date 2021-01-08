@@ -22,6 +22,18 @@ The goals / steps of this project are the following:
 [image1]: ./examples/examples_database.png "Some images from the database"
 [image2]: ./examples/barChart_database.png "Bar cart of the training data"
 [image3]: ./examples/example_grayscaling.png "Grayscaling"
+[image4]: ./examples/0_Hoechstgeschwindigkeit20.jpg "0 - Speed limit (20km/h)"
+[image5]: ./examples/12_Vorfahrtstrasse.jpg "12 - Priority road"
+[image6]: ./examples/13_VorfahrtAchten.jpg "13 - Yield"
+[image7]: ./examples/13_VorfahrtAchten_verschneit.jpg "13 - Yield - with snow"
+[image8]: ./examples/14_Stop.jpg "14 - Stop"
+[image9]: ./examples/17_EinfahrtVerboten.jpg "17 - No entry"
+[image10]: ./examples/18_Achtung.jpg "18 - General caution"
+[image11]: ./examples/25_Baustelle.jpg "25 - Road work"
+[image12]: ./examples/2_Hoechstgeschwindigkeit50.jpg "2 - Speed limit (50km/h)"
+[image13]: ./examples/33_RechtsAbbiegen.jpg "33 - Turn right ahead"
+[image14]: ./examples/4_Hoechstgeschwindigkeit70.jpg "4 - Speed limit (70km/h)"
+
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -62,13 +74,13 @@ Additionally, here is a bar chart showing how many images of each traffic sign i
 As a first step, I decided to convert the images to grayscale because many images are very dark and grayscaling reduces color features. Additionally, the
 further analytics are much more efficent with grayscaled images. My own experiencens and researches in the internet validate this.
 
-As second and last step, I normalized the image data because this converts the RGB values of each pixel to float values between -1 and 1. This is useful because the furher analysis is much more comfortable with small numbers. I normalized the images by subracting 128 and dividing the difference by 128. The other commented out possibility, which was used in a quiz of this nanodegree, made my validation accuracy worse.
+As second and last step, I normalized the image data because this converts the RGB values of each pixel to float values between -1 and 1. This is useful because the furher analysis is much more comfortable with small numbers. I normalized the images by subtracting 128 and dividing the difference by 128. The other commented out possibility, which was used in a quiz of this nanodegree, made my validation accuracy worse.
 
 Here is an example of a traffic sign image before and after grayscaling:
 ![Grayscaled][image3]
 
 
-I tried to generate additional data because as the bar chart above shows, some traffic signs have very less examples (e. g. 0 - Speed limit (20 km/h) compared to others (e. g. 2 - Speed limit (50 km/h). This may be caused by the frequency distribution in reality, but to regognize all signs equally good, I wanted to increase all data per traffic sign to the count of the most frequent traffic sign in the database (2010 images). This resulted in a much better validation accuracy at the beginning of training the modified LeNet model architecture. But the final result was always worse than the result without data augmentation. So I decided to leave the generation of additional data.
+I tried to generate additional data because as the bar chart above shows, some traffic signs have very less examples (e. g. 0 - Speed limit (20 km/h) compared to others (e. g. 2 - Speed limit (50 km/h). This may be caused by the frequency distribution in reality, but to regognize all signs equally good, I wanted to increase all data per traffic sign to the count of the most frequent traffic sign in the database (2010 images). This resulted in a better validation accuracy at the beginning of training the modified LeNet model architecture. But the final result was always worse than the result without data augmentation. So I decided to leave the generation of additional data.
 
 Nevertheless here is a short description how I tried data augmentation. The function increase_dataset in cell 6 would do the job. I used a random scaling factor between 0.8 and 1.2, a randomized rotation between -20 and 20 degrees and a random movement between -3 and 3 pixels in x and y direction. Even playing with these numbers brougt no better results.
 
@@ -79,52 +91,82 @@ My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x1 gracscaled image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 28x28x6 	|
+| Input         		| 32x32x1 grayscaled image   							| 
+| Convolution 5x5     	| 1x1 stride, same padding, outputs 28x28x6 	|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride,  outputs 14x14x6 				|
-| Convolution 3x3	    | outputs 10x10x16      									|
-| RELU					|												|
+| Convolution 5x5	    | outputs 10x10x16      									|
+| RELU					|	activation function											|
 | Max pooling	      	| 2x2 stride,  outputs 5x5x16 				|
 | Flatten			|												|
 | Dropout 50 %   |       									|
 | Fully connected		| outputs 120.        									|
-| RELU				|        									|
-| Dropout 50 %   |      									|
+| RELU				| activation function       									|
 | Fully connected		| outputs 84.        									|
-| RELU				|   
+| RELU				| activation function   
 | Dropout 50 %   |      									|
 | Fully connected		| outputs 43.        									|
  
 
-
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used AdamOptimizer, over all 150 epocs with a batch size of 128 and a learning rate of 0.0056. I experienced especially with the learning rate very often and came to the conclution that 0.0056 fits very good. The batch size got worse if I used another than 128, so I did not change this. The epocs can of course be more or less (around 50 epocs the validation accuracy seems already good enough) but more than 120 / 130 brought never a better result.
+To train the model, I used AdamOptimizer, over all 150 epocs with a batch size of 128 and a learning rate of 0.00056. I experienced especially with the learning rate very often and came to the conclution that 0.000556 fits very good. And while training I reduced the learning rate from the 5th epoch on every 5th epoch about 5 %, so that the training epochs 1 to 4 have the original learing rate of 0.000556, epochs 5 to 9 have a learning rate of 0.000502 and so on until the last epoch 50 with a learning rate of   The batch size got worse if I used another than 128, so I did not change this. The epochs can of course be more or less, but 50 are enough as I saw. It may be that further epochs can increase the validation accuracy for some tenth percentpoints. This seemed to be not efficient.
 
-As mentioned above I also used 3 Dropout filters with rate of 50 %. Besides of that I experimented with mu (but every chage brought worse results) and sigma. For sigma I got the best result with 0.075 instead of 0.1.
+I also added 2 Dropout filters with rate of 70 %. Besides of that I experimented with mu (but every chage brought worse results) and sigma (also no success).
 
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* training set accuracy of 99.9 %
+* validation set accuracy of 95.0 %
+* test set accuracy of 93.6 %
 
-I began with an architecture which overfitted overfit the training data (sometimes 99.6 %, whereas the validation accuracy was around 88 %. This is why I have added dropout layers between the fully connected layers. After that I spent a lot of time to adjust the hyperparameters epocs, batch_size, dropout rate, mu and sigma. Sometimes the validation accuracy was much worse than 93 %. I saved the model with the combination which had the highest validation accuracy.
+I began with an architecture which overfitted the training data, sometimes 99.6 %, whereas the validation accuracy was around 88 %. This is why I have added 2 dropout layers between the fully connected layers. After that I spent a lot of time to adjust the hyperparameters epocs, batch_size, dropout rate, learning rate, mu and sigma. Sometimes the validation accuracy was much worse than 93 %. It was a long game of trial and error. I saved the model with the combination which had the highest validation accuracy. 
  
 
 ### Test a Model on New Images
 
 #### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
-Here are five German traffic signs that I found on the web: follows
+Here are eleven German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![alt text][image4]
+This image might be difficult to classify because the perspective and rotation angle might look like every other speed limit sign.
 
-The first image might be difficult to classify because ...
+![alt text][image5]
+This image should be no problem besides of the perspective.
+
+![alt text][image6]
+Here the traffic sign is quite small compared to the other images and there is a road sign above.
+
+![alt text][image7]
+The traffic sign is big enough but parts of the sign are hidden by snow.
+
+![alt text][image8]
+Here the perspective might be a problem, on the other hand there is no resembling traffic sign.
+
+![alt text][image9]
+This sign should be easy to classify.
+
+![alt text][image10]
+Here is the difficulty an additional sign below the interesting sign
+
+![alt text][image11]
+This sign is ab bit blurry and the perspective could make the classifying harder.
+
+![alt text][image12]
+This should be no problem although there are many resembling speed limit signs.
+
+![alt text][image13]
+Here it is again the perspective, on the other hand the sign is good to see.
+
+![alt text][image14]
+This should be no problem although there are many resembling speed limit signs.
+
+
+
+
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
@@ -132,14 +174,21 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| 0 - Speed limit (20km/h)      		| 0 - Speed limit (20km/h)   									| 
+| 12 - Priority road     			| 12 - Priority road										|
+| 13 - Yield					| 13 - Yield											|
+| 13 - Yield - with snow	      		| 13 - Yield				 				|
+| 14 - Stop		| 14 - Stop     						|
+| 17 - No entry		| 17 - No entry      						|
+| 18 - General caution		| 1 - Speed limit (30km/h)      						|
+| 25 - Road work		| 25 - Road work     						|
+| 2 - Speed limit (50km/h)	| 2 - Speed limit (50km/h)     						|
+| 33 - Turn right ahead		| 33 - Turn right ahead	    						|
+| 4 - Speed limit (70km/h)		| 4 - Speed limit (70km/h)      						|
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+
+The model was able to correctly guess 10 of the 11 traffic signs, which gives an accuracy of 90.9 %. This compares favorably to the accuracy on the test set of 96.6 %.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
