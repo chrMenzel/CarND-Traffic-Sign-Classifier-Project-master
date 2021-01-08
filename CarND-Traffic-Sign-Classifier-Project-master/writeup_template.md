@@ -207,4 +207,4 @@ The one misclassified image is interesting. Here the model was for more than 60 
 
 ![Visusalizing neural network][image16]
 
-
+It is hard to see. The feature maps should look for slightly different edges, but here nearly all are activated by the diagonal line from top left to the middle down of the Yield sign.
